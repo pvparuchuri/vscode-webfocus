@@ -1,0 +1,630 @@
+{
+	"name": "focexec",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#properties"
+		},
+		{
+			"include":"#use-block"
+		},
+		{
+			"include":"#modify-block"
+		},
+		{
+			"include":"#sql-block"
+		},
+		{
+			"include":"#html-block"
+		},
+		{
+			"include":"#dialoguemgr"
+		},
+		{
+			"include": "#define-block"
+		},
+		{
+			"include": "#table-block"
+		},
+		{
+			"include": "#other"
+		}
+	],
+	"repository": {
+		"other": {
+			"patterns":[
+				{
+					"match":"\\b(FILEDEF|DISK|CLEAR|EX)\\b",
+					"name" :"keyword.other.define.focexec"
+				}
+			]
+		},
+		"dialoguemgr": {
+			"begin": "^(-)(TYPE|RUN|INCLUDE|READ|GOTO|EXIT|CLOSE|PASS|READ|READFILE|WRITE|\\?|START|SET|IF|DEFAULT|DEFAULTS|DEFAULTH|REPEAT)*\\b([\\s\\t]*)",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"end": "$",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.property-list.end.bracket.curly.css"
+				}
+			},
+			"name": "meta.property-list.css",
+			"patterns": [
+				{
+					"include":"#variables"
+				},
+				{
+					"include":"#conditions"
+				},
+				{
+					"include": "#strings"
+				}
+			]
+		},
+		"table-block":{
+			"begin":"^((TABLE|MATCH|GRAPH)[\\s\\t]*)\\b",
+			"captures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"end":"\\b(END)\\b",
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include" : "#table-keywords"
+				},
+				{
+					"include": "#compute-block"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include": "#dialoguemgr"
+				},
+				{
+					"include": "#conditions"
+				},
+				{
+					"include": "#strings"
+				}
+			]	
+		},
+		"compute-block": {
+			"begin" : "[\\s\\t\\n]*\\b(COMPUTE)\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				},
+				"1": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"end" : ";",
+			"endCapures" : {
+				"0":{
+					"name": "punctuation.separator.focexec"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include":"#conditions"
+				},
+				{
+					"include": "#formats"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#functions"
+				}
+			]
+		},
+		"formats" : {
+			"patterns":[
+				{
+					"match":"\\b(A[0-9]{1,}(B|V)*)\\b",
+					"name": "constant.numeric.focexec"
+				},
+				{
+					"match":"\\b(TX[0-9]*)\\b",
+					"name": "constant.numeric.focexec"
+				},
+				{
+					"match":"\\b(I[0-9]{1,})\\b",
+					"name": "constant.numeric.focexec"
+				},
+				{
+					"match":"\\b((D|P|F)[0-9]{1,}[.0-9]*(S|M|N|B|C)*)\\b",
+					"name": "constant.numeric.focexec"
+				},
+				{
+					"match":"\\b(DATE|YYMD|MDYY|YMD|HYYMDs|HYYMDm|HHISsm|A8YYMD|I8YYMD|A8MDYY|I8MDYY|I6MDY|I6YYM|AUTODATE)\\b",
+					"name": "constant.numeric.focexec"
+				},
+				{
+					"match":"\\b((S|SH)[0-9]{1,})\\b",
+					"name": "keyword.control.define.focexec"
+				},
+				{
+					"match":"\\b(R|I|H|ON|OFF|NO|SQLSYB|SQLMSS|SQLORA|COMT|COM|TAB|TABT|VSAM|VARIABLE|ISAM|DFIX|U|KU|KM|KL|DKU|DKM|KLU|FIX|FOC|FOCUS|XFOCUS|INNER|LEFT_OUTER|STREAM)\\b",					
+					"name":"keyword.control.define.focexec"
+				},
+				{
+					"match":"=",
+					"name": "punctuation.separator.focexec" 
+				}
+			]
+		},
+		"define-block": {
+				"begin" : "^[\\s\\t\\n]*(DEFINE)\\b",
+				"beginCaptures": {
+					"0": {
+						"name": "keyword.other.define.focexec"
+					}
+				},
+				"end":"^[\\s\\t\\n]*\\b(END)\\b",
+				"endCaptures": {
+					"0": {
+						"name": "keyword.other.define.focexec"
+					}
+				},
+				"name":"meta.function.define.focexec",
+				"patterns": [
+					{
+						"match": "\\b(FILE|CLEAR|ADD)\\b",
+						"name":"keyword.other.define.focexec"
+					},
+					{
+						"include": "#comments"
+					},
+					{
+						"include": "#variables"
+					},
+					{
+						"include":"#dialoguemgr"
+					},
+					{
+						"include":"#conditions"
+					},
+					{
+						"include": "#formats"
+					},
+					{
+						"include": "#strings"
+					},
+					{
+						"include": "#functions"
+					}
+				]
+		},
+		"use-block": {
+				"begin" : "^[\\s\\t\\n]*\\b(USE)\\b",
+				"beginCaptures": {
+					"0": {
+						"name": "keyword.other.define.focexec"
+					},
+					"1": {
+						"name": "keyword.other.define.focexec"
+					}
+				},
+				"end":"\\b(END)\\b|(\\*)",
+				"endCaptures": {
+					"0": {
+						"name": "keyword.other.define.focexec"
+					}
+				},
+				"name":"meta.function.define.focexec",
+				"patterns": [
+					{
+						"include": "#comments"
+					},
+					{
+						"include": "#variables"
+					},
+					{
+						"include":"#dialoguemgr"
+					},
+					{
+						"include": "#strings"
+					},
+					{
+						"match": "\\b(CLEAR|AS)\\b",
+						"name": "keyword.other.define.focexec"
+					}
+				]
+		},
+		"modify-block": {
+			"begin" : "^[\\s\\t\\n]*\\b(MODIFY)\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				},
+				"1": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"end":"\\b(END)\\b|(\\*)",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"name":"meta.function.define.focexec",
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include":"#dialoguemgr"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"match": "\\b(FILE|FIXFORM|FREEFORM|ON|MATCH|NOMATCH|DATA)\\b",
+					"name": "keyword.other.define.focexec"
+				},
+				{
+					"match": "\\b(REJECT|INCLUDE|CONTINUE|UPDATE)\\b",
+					"name": "keyword.control.define.focexec"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"match": "(?<!&)&{1,2}\\b(\\w+)(.EVAL)*\\b",
+					"name":"variable.name.other.focexec"
+				}
+			]
+		},
+		"sql-block": {
+			"begin" : "^[\\s\\t\\n]*\\b(SQL)\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				},
+				"1": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"end":"\\b(END)\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"name":"meta.function.define.focexec",
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include":"#dialoguemgr"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"match": "\\b(EXEC|PREPARE|FOR)\\b",
+					"name": "keyword.other.define.focexec"
+				},
+				{
+					"match": "\\b(SQLMSS|SQLORA|SQLDB2|SQLSYB)\\b",
+					"name": "keyword.control.define.focexec"
+				}
+			]
+		},
+		"html-block": {
+			"begin" : "^-HTMLFORM[\\s\\t\\n]{1,}BEGIN\\b",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				},
+				"1": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"end" : "^-HTMLFORM[\\s\\t\\n]{1,}END\\b",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.other.define.focexec"
+				}
+			},
+			"name":"meta.function.define.focexec",
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include":"#dialoguemgr"
+				},
+				{
+					"include": "#strings"
+				}
+			]
+		},
+		"conditions":{
+			"patterns":[
+				{
+					"match": "\\b(GOTO|TIMES|FOR|FROM|TO|STEP)\\b",
+					"name": "keyword.other.comparison.focexec"
+				},	
+				{
+					"match": "\\b(IF|ELSE|WHERE)\\b",
+					"name": "keyword.control.comparison.focexec"
+				},
+				{
+					"match": "\\b(EQ|NE|LE|LT|GE|GT|IN|IS|NOT|CONTAINS|LIKE|OR|AND|THEN)\\b",
+					"name": "keyword.control.comparison.focexec"
+				},
+				{
+					"match": "\\*",
+					"name": "keyword.other.unit.math.focexec"
+				},
+				{
+					"match": "[!<>]?=|<>|<|>",
+					"name": "keyword.control.comparison.focexec"
+				},
+				{
+					"match": "(-|\\+|/)",
+					"name": "keyword.other.unit.math.focexec"
+				},
+				{
+					"match": "\\|",
+					"name": "keyword.control.comparison.focexec"
+				},
+				{
+					"match": "\\|\\|",
+					"name": "keyword.control.comparison.focexec"
+				},
+				{
+					"include": "#formats"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#strings"
+				}
+			]
+		},
+		"functions":{
+			"patterns": [
+				{
+					"match":"\\b(ARGLEN|ASIS|BITSON|BITVAL|BYTVAL|CHKFMT|CTRAN|CTRFLD|EDIT|GETTOK|LCWORD|LCWORD2|LCWORD3|LJUST|LOCASE|OVRLAY|PARAG|POSIT|REVERSE|RJUST|SOUNDEX|SPELLNM|SQUEEZ|STRIP|STRREP|SUBSTR|TRIM|UPCASE|LENV|LOCASV|POSITV|SUBSTV|TRIMV|UPCASV|CHAR_LENGTH|DIGITS|LOWER|LPAD|LTRIM|POSITION|RPAD|RTRIM|SUBSTRING|TOKEN|TRIM_|UPPER|DCTRAN|DEDIT|DSTRIP|DSUBSTR|JPTRANS|CHAR2INT|INT2CHAR|LCWORD|LCWORD2|LENGTH|LJUST|LOWER|MASK|MNTGETTOK|NLSCHR|OVRLAY|POSIT|RJUST|SELECTS|STRAN|STRCMP|STRICMP|STRNCMP|SUBSTR|TRIM|TRIMLEN|UPCASE|DB_EXPR|DB_INFILE|DB_LOOKUP|DECODE|FIND|LAST|LOOKUP|DATEADD|DATECVT|DATEDIF|DATEMOV|DATETRAN|DPART|FIYR|FIQTR|FIYYQ|HMASK|TODAY|AYM|AYMD|CHGDAT|DA|DMY|MDY|YMD|DOWK|DOWKL|DT|GREGDT|JULDAT|YM|CVTSTIME|GETSTIME|HADD|HCNVRT|HDATE|HDIFF|HDTTM|HEXTR|HGETC|HMASK|HHMMSS|HINPUT|HMIDNT|HNAME|HPART|HSETPT|HTIME|HTMTOTS|TIMETOTS|WRTSTIME|DTADD|DTDIFF|DTPART|DTRUNC|Initial_HHMMSS|Initial_TODAY|TODAY2|ADD|DAY|JULIAN|MONTH|QUARTER|SETMDY|SUB|WEEKDAY|YEAR|ATODBL|FPRINT|FTOA|HEXBYT|ITONUM|ITOPACK|ITOZ|PCKOUT|PTOA|TSTOPACK|UFMT|XTPACK|IWC.GetAppCGIValue|IWC.FindAppCGIValue|ABS|ASIS|BAR|CHKPCK|DMOD|FMOD|IMOD|EXP|EXPN|FMLINFO|FMLLIST|FMLFOR|FMLCAP|INT|LOG|MAX|MIN|MIRR|NORMSDST|NORMSINV|PRDNOR|PRDUNI|RDNORM|RDUNIF|SQRT|XIRR|IWCLink|IWCSwitchToSecure|IWCSwitchToUnsecure|IWCTrigger|CLSDDREC|FEXERR|FINDMEM|GETCOOKI|GETHEADR|GETPDS|GETUSER|MVSDYNAM|PUTCOOKI|PUTDDREC|SLEEP|SPAWN|SYSTEM|SYSVAR)\\b",
+					"name": "support.function.expression.focexec"
+				}
+			]
+		},
+		"properties": {
+			"patterns": [
+				{
+					"match":"^SET",
+					"name": "keyword.other.define.focexec"
+				},
+				{
+					"name": "meta.property-name.focexec",
+					"include": "#property-names"
+				},
+				{
+					"begin": "[\\s\\t\\n]*(=)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.separator.key-value.focexec"
+						}
+					},
+					"end": "[\\s\\t\\n]*$",
+					"contentName": "meta.property-value.focexec",
+					"patterns": [
+						{
+							"include": "#property-values"
+						}
+					]
+				}
+			]
+		},
+		"property-names": {
+			"patterns" : [
+				{
+					"match": "[\\s\\t\\n]{1,}(EMGSRV|2PARTNAME|3DGRAPH|ACCBLN|ACCESSHTML|ACCESSIBLE|ACCESSPDF|ACROSSLINE|ACROSSPRT|ACRSVRBTITL|ADABAS|AGGRRATIO|ALL|ALLOWCVTERR|ALPHACLEAN|ASNAMES|AUTODRILL|AUTOINDEX|AUTOPATH|AUTOSTRATEGY|AUTOTABLEF|AUTOTICK|BARNUMB|BARSPACE|BARWIDTH|BINS|BLANKINDENT|BLKCALC|BOTTOMMARGIN|BSTACK|BUSDAYS|BYDISPLAY|BYPANELING|BYSCROLL|CACHE|CALC|CALCMEMORY|CALCROWS|CALCWAIT|CARTESIAN|CASESTAT|CDN|CENT-ZERO|CGI-RELEASE|CNOTATION|CNVERR|CODEBASE|COLLATION|COLUMNSCROLL|COMMIT|COMPMISS|COMPUTE|CONTENTLEN|COUNTWIDTH|CURRENCY|DATEDISPLAY|DATEFNS|DATEFORMAT|DATEOUTPUT|DATETIME|DBAJOIN|DBASOURCE|DBLOAD|DBMSMSGLIMIT|DEFCENT|DEFECHO|DISPLAY|DISTRIBUTE|DMPRECISION|DROPBLNKLINE|DTSTANDARD|DTSTRICT|DUPLICATECOL|EMPTYREPORT|END_OF_TEXT|EQTEST|ERROROUT|ESTLINES|ESTRECORDS|EUROFILE|EXCELRELEASE|EXL2KLANG|EXPANDBYROWEXTAGGR|EXTENDNUM|EXTHOLD|EXTRACT|EXTSORT|EXTTERM|FIELDNAME|FILECASE|FILENAME|FIXFRMINPUT|FIXRETRIEVE|FOC144|FOC2GIGDB|FOCALLOC|FOCFIRSTPAGE|FOCSTACK SIZE|FOCTRANSFORM|FORMATGRAPH|FORMFEED|FORMPROPMISS|FRAME|GMISSING|GMISSVAL|GPROMPT|GRAPHDEFAULT|GRAPHENGINE|GRAPPLETONLY|GRIBBON|GRID|GRLEGEND|GRMERGE|GRMULTIGRAPH|GRWIDTH|GRXAXIS|GTREND|HAUTO|HAXIS|HCLASS|HDAY|HEADFOOTACR|HIDENULLACRS|HIPERFOCUS|HISTOGRAM|HMAX|HMIN|HNODATA|HOLDATTRS|HOLDFORMAT|HOLDLIST|HOLDMISS|HOLDSTAT|HOTMENU|HSTACK|HTICKHTMLCSS|HTMLFORMTYPE|IBMLE|ICUFORM|IFSORT|IMMEDTYPE|IMPLIEDLOAD|IMS|INDEX TYPE|JOIN2MEMORY|JOINOPT|KEEPDEFINES|KEEPFILTERS|LABELPROMPT|LANGUAGE|LAYOUTRTL|LEADZERO|LEFTMARGIN|LINES/PAGE|LINES/PRINT|LINKMODE|LOADLIMIT|LOOKGRAPH|MAXDATAEXCPT|MAXLRECL|MAXPOOLMEM|MDEXTERNAL|MDIBINS|MDICARDWARN|MDIPROGRESS|MESSAGE|MINIO|MISSINGTEST|MODCOMPUTE|MODE|MORE|MPRINT|MULTIPATH|NATVFLG|NLSCTRL|NODATA|OFFLINE-FMT|OLAPDISPLAY|OLAPGRMERGE|OLAPPANE|ONFIELD|ONLINE-FMT|ORIENTATION|OVERFLOWCHAR|PA01|PA02|PAGE-NUM|PAGESIZE|PANEL|PAUSE|PCHOLD-FMT|PCOMMA|PDFLINETERM|PF01|PF02|PF03|PF04|PF05|PF06|PF07|PF08|PF09|PF10|PF11|PF12|PF13|PF14|PF15|PF16|PF17|PF18|PF19|PF20|PF21|PF22|PF23|PF24|PIE|POOL|POOLBATCH|POOLFEATURE|POOLMEMORY|POOLRESERVE|POSITIONMODE|PREFIX|PREVIEW|PRINT|PRINTDST|PRINTPLUS|PSPAGESETUP|QUALCHAR|QUALTITLES|RADIOBUTTON|RANK|REBUILDMSG|RECAP-COUNT|RECORDLIMIT|REQSCOPE|RIGHTMARGIN|RPAGESET|SAVEMATRIX|SBORDER|SCREEN|SESSION MONITOR|SHADOW PAGE|SHIFT|SHORTPATH|SMARTMODE|SORTLIB|SORTNAME|SPACES|SQLENGINE|SQLTCARTES|SQLTOPTTF|SQUEEZE|STYLEMODE|STYLESHEET|SUMMARYLINES|SUMPREFIX|SUSI|SUTABSIZE|TALKCASE|TCPIPINT|TEDMAXLINE|TEMP DISK|TERMINAL|TESTDATE|TEXTFIELD|TITLES|TOPMARGIN|TRACKIO|TRMOUT|TRMSD|TRMSW|TRMTYP|TSORUNAM24|UNITS|VAUTO|VAXIS|VCLASS|VGRID|VIEWERMULT|VIEWNAMESIZE|VMAX|VMIN|VMSFLOATCONV|VTICK|VZERO|WEBHOME|WEBVIEWALLPG|WEBVIEWCLMSG|WEBVIEWCLOSE|WEBVIEWER|WEBVIEWHELP|WEBVIEWTARG|WEEKFIRST|WIDTH|WINPFKEY|WPMINWIDTH|XFBINS|XFC|XMLTYPE|XRETRIEVAL|YRTHRESH|ZIIP|EXCELSERVURL|DEFINES)",
+					"name": "support.type.property-name.focexec"
+				}
+			]
+		},
+		"property-values": {
+			"patterns" : [
+				{
+					"match": "\\b(PRINTONLY|FOCUS|ON|OFF|NOPAGE|NORMAL|HIDEONE|NEW|END|REJECT|CODEPAGE|RECORDLIMIT|AUTO|XSBEG|NATV|FULL|BACKWARD|FORWARD|LST|UNKNOWN|TODAY|INCHES|_blank|RAW|IEEE|IBM3270|ONLINE|DENSE|IMMEDIATE|RETURN|LEFT|UNDO|RIGHT|SORT|CURRENT|Letter|DEFAULT|STARTUP|HOST|XML|CANCEL|HX|WILDCARD|AMENGLISH|LOWER|HTML|ASCII|BINARY|OLD|EDA|WINNT|COMPOUND|STANDARD|DHTML|PORTRAIT)\\b",
+					"name": "support.constant.property-value.focexec"
+				}
+			]
+		},
+		"table-keywords": {
+			"patterns":[
+				{
+					"match" : "\\b(TABLE|FILE|SUM|PRINT|RUN|BY|AND|MORE)\\b",
+					"name": "keyword.other.define.focexec"
+				},
+				{
+					"match" : "[\\s\\t\\n]*(MAX\\.|FST\\.|LST\\.|MIN\\.)\\b",
+					"name": "support.function.expression.focexec"
+				},
+				{
+					"match": "[\\s\\t\\n]{1,}(AS|NOPRINT)*\\b",
+					"name": "support.type.property-name.focexec"
+				}
+			]
+		},
+		"table-property-names": {
+			"patterns" : [
+				{
+					"match": "[\\s\\t\\n]{1,}(HOLDLIST|FORMAT|ASNAMES|BYDISPLAY|HTMLCSS|CENT-ZERO)\\b",
+					"name": "support.type.property-name.focexec"
+				}
+			]
+		},
+		"table-property-values": {
+			"patterns" : [
+				{
+					"match": "(PRINTONLY|FOCUS|ON|OFF|NOPAGE|NORMAL|HTML|PDF|EXCEl|XLSX|EXL2K)\\b",
+					"name": "support.constant.property-value.focexec"
+				}
+			]
+		},
+		"table-properties": {
+			"patterns": [
+				{
+					"match":"^[\\s\\t\\n]*((ON|AFTER)[\\s\\t\\n]{1,}(TABLE|MATCH))\\b",
+					"name": "keyword.other.define.focexec"
+				},
+				{
+					"match":"[\\s\\t\\n]{1,}(SET|HOLD|SAVE|PCHOLD)\\b",
+					"name": "keyword.other.define.focexec"
+				},
+				{
+					"name": "meta.property-name.focexec",
+					"include": "#table-property-names"
+				},			
+				{
+					"begin": "[\\s\\t\\n]{1,}",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.separator.key-value.focexec"
+						}
+					},
+					"end": "[\\s\\t\\n]*$",
+					"contentName": "meta.property-value.focexec",
+					"patterns": [
+						{
+							"include": "#table-property-values"
+						}
+					]
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"match": "((^-\\*).*$)",
+					"captures": {
+						"1": {
+							"name": "comment.line.focexec"
+						}
+					}
+				}
+			]
+		},
+		"escapes": {
+			"patterns": [
+				{
+					"match": "\\'",
+					"name": "constant.character.escape.focexec"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"begin": "\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.focexec"
+						}
+					},
+					"end": "\"|(?<!\\\\)(?=$|\\n)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.focexec"
+						}
+					},
+					"name": "string.quoted.double.focexec",
+					"patterns": [
+						{
+							"begin": "(?:\\G|^)(?=(?:[^\\\\\"]|\\\\.)+$)",
+							"end": "$",
+							"name": "invalid.illegal.unclosed.string.focexec",
+							"patterns": [
+								{
+									"include": "#escapes"
+								},
+								{
+									"include": "#variables"
+								}
+							]
+						},
+						{
+							"include": "#escapes"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"begin": "'",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.focexec"
+						}
+					},
+					"end": "'|(?<!\\\\)(?=$|\\n)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.focexec"
+						}
+					},
+					"name": "string.quoted.single.focexec",
+					"patterns": [
+						{
+							"begin": "(?:\\G|^)(?=(?:[^\\\\']|\\\\.)+$)",
+							"end": "$",
+							"name": "invalid.illegal.unclosed.string.focexec",
+							"patterns": [
+								{
+									"include": "#escapes"
+								},
+								{
+									"include": "#variables"
+								}
+							]
+						},
+						{
+							"include": "#escapes"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				}
+			]
+		}
+	},
+	"scopeName": "source.fex"
+}

@@ -1,0 +1,53 @@
+{
+    "commentblock": {
+        "prefix": "comment",
+        "body": [
+            "-********************************************************************************",
+            "-* ${1:comment}",
+            "-********************************************************************************"
+        ],
+        "description": "Code snippet for a comment block"
+    },
+    "USE": {
+        "prefix": "USE",
+        "body": [
+            "USE",
+            "\t${1:FileName} AS ${2:MasterFile}",
+            "END"
+        ],
+        "description": "Code snippet for USE"
+    },
+    "DEFINE": {
+        "prefix": "DEFINE",
+        "body": [
+            "DEFINE FILE ${1:FileName}",
+            "\t${2: }",
+            "END"
+        ],
+        "description": "Code snippet for DEFINE"
+    },
+    "TABLE": {
+        "prefix": "TABLE",
+        "body": [
+            "TABLE FILE ${1:FileName}",
+            "${2: }",
+            "END"
+        ],
+        "description": "Code snippet for TABLE"
+    },
+    "FIELDEF": {
+        "prefix": "FILEDEF",
+        "body": [
+            "FILEDEF ${1:ddname} DISK ${2:path\\filename}"
+        ],
+        "description": "Code snippet for FILEDEF"
+    },
+    "FIELDEF/CLEAR": {
+        "prefix": "FILEDEF/CLEAR",
+        "body": [
+            "FILEDEF ${1:ddname} CLEAR",
+            "FILEDEF ${1:ddname} DISK ${2:Path\\FileName}"
+        ],
+        "description": "Code snippet for FILEDEF"
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "name": "webfocus",
+    "displayName": "WebFOCUS",
+    "description": "Provides syntax highlighting in Visual Studio Code for WebFOCUS",
+    "version": "0.2.2",
+    "publisher": "pvparuchuri",
+    "author": {
+		"name": "Venkata Paruchuri",
+		"url": "https://github.com/pvparuchuri"
+	},
+    "icon": "icon.png",
+    "galleryBanner": {
+		"color": "#8D9DAB",
+		"theme": "dark"
+	},
+	"homepage": "https://github.com/pvparuchuri/WebFOCUS",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pvparuchuri/WebFOCUS.git"
+    },
+    "bugs": { 
+        "url": "https://github.com/pvparuchuri/WebFOCUS/issues" 
+    },
+    "engines": { 
+        "vscode": "*" 
+    },
+    "categories": [
+        "Programming Languages",
+        "Formatters",
+        "Snippets",
+        "Other"	    
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "focexec",
+                "aliases": [ "FOCUS Executable", "WebFOCUS"],
+                "extensions": [".fex"],
+                "configuration": "./languages/focexec.json"
+            },
+            {
+                "id": "master",
+                "aliases": ["Master File"],
+                "extensions": [".mas"],
+                "configuration": "./languages/master.json"
+            },
+            {
+                "id": "access",
+                "aliases": ["Access File"],
+                "extensions": [".acx"],
+                "configuration": "./languages/access.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "focexec",
+                "path": "./snippets/focexec.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "focexec",
+                "scopeName": "source.fex",
+                "path": "./syntaxes/focexec.tmLanguage.json"
+            },
+            {
+                "language": "master",
+                "scopeName": "source.mas",
+                "path": "./syntaxes/master.tmLanguage.json"
+            },
+            {
+                "language": "access",
+                "scopeName": "source.acx",
+                "path": "./syntaxes/access.tmLanguage.json"
+            }
+        ]
+    }
+}
