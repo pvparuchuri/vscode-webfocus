@@ -13,13 +13,13 @@
 		"color": "#8D9DAB",
 		"theme": "dark"
 	},
-	"homepage": "https://github.com/pvparuchuri/WebFOCUS",
+	"homepage": "https://github.com/pvparuchuri/vscode-webfocus",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/pvparuchuri/WebFOCUS.git"
+		"url": "https://github.com/pvparuchuri/vscode-webfocus.git"
     },
     "bugs": { 
-        "url": "https://github.com/pvparuchuri/WebFOCUS/issues" 
+        "url": "https://github.com/pvparuchuri/vscode-webfocus/issues" 
     },
     "engines": { 
         "vscode": "*" 

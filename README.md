@@ -7,7 +7,7 @@ This Visual Studio Code extension aims to provide full language support for WebF
 - Snippets for FOCUS Executables
 
 ## Issues
-Please use github https://github.com/pvparuchuri/WebFOCUS/issues to report any issues or request new snippets or features. 
+Please use the following [github link](https://github.com/pvparuchuri/vscode-webfocus/issues) to report any issues or request new snippets or features. 
 
 ## Release Notes
 

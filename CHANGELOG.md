@@ -17,6 +17,6 @@ All notable changes to the "WebFOCUS" extension will be documented in this file.
 ### Added
 - Added syntax highlighting FOCUS Procedures (handles comments, strings, SET Commands, Variables, Derived Columns)
 
-## 0.1.0 - 2018-05-07
+## [0.1.0] - 2018-05-07
 ### Added
 - Initial release of the WebFOCUS Extension
