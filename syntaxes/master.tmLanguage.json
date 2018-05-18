@@ -5,6 +5,9 @@
 			"include": "#comments"
 		},
 		{
+			"include": "#variables"
+		},
+		{
 			"include": "#declare-block"
 		},
 		{
@@ -20,11 +23,15 @@
 				},
 				{
 					"match": "((^-\\*).*$)",
-					"captures": {
-						"1": {
-							"name": "comment.line.master"
-						}
-					}
+					"name": "comment.line.master"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"match": "(?<!&)&{1,2}\\b(\\w+)(.EVAL)*\\b",
+					"name":"variable.name.other.master"
 				}
 			]
 		},
@@ -69,7 +76,7 @@
 		"declare-keywords":{
 			"patterns":[
 				{
-					"match" : "[\\s\\t\\n]*\\b(FILE|FILENAME|SUFFIX|GROUP|MASTER|WHERE|ELEMENTS|ACCEPT|SEGNAME|MDI|OCCURS|TARGET_OF|MDIDATA|DIM|MAXVALUES|WITHIN|SEGSUF|REMARKS|LOCATION|DATA|DATASET|ACEEPT|ENCLOSURE|HELPMESSAGE|HEADER|FOLDER|DBASOURCE|DESCRIPTION|DESCRIPTION_ln|DESC|DESC_ln|BELONGS_TO_SEGMENT|TITLE|TITLE_ln|PRESERVESPACE|POSITION|RDELIMITER|IOTYPE|SEGMENT|SEGTYPE|PARENT|CRFILE|CRJOINTYPE|JOIN_WHERE|CRSEGNAME|CRKEY|FIELD|FIELDNAME|ALIAS|USAGE|ACTUAL|FORMAT|MISSING|ACCESS|FIELDTYPE|INDEX|END|DBA|PASS|ACCESS|RESTRICT|NAME|DBAFILE|VALUE|PUBNO|AUTHOR|TITLE|BINDING)\\b",
+					"match" : "[\\s\\t\\n]*\\b(FILE|FILENAME|SUFFIX|VARIABLE|PROMPT|DEFAULT|GROUP|MASTER|WHERE|ELEMENTS|ACCEPT|SEGNAME|MDI|OCCURS|TARGET_OF|MDIDATA|DIM|MAXVALUES|WITHIN|SEGSUF|REMARKS|LOCATION|DATA|DATASET|ACEEPT|ENCLOSURE|HELPMESSAGE|HEADER|FOLDER|DBASOURCE|DESCRIPTION|DESCRIPTION_ln|DESC|DESC_ln|BELONGS_TO_SEGMENT|TITLE|TITLE_ln|PRESERVESPACE|POSITION|RDELIMITER|IOTYPE|SEGMENT|SEGTYPE|PARENT|CRFILE|CRJOINTYPE|JOIN_WHERE|CRSEGNAME|CRKEY|FIELD|FIELDNAME|ALIAS|USAGE|ACTUAL|FORMAT|MISSING|ACCESS|FIELDTYPE|INDEX|END|DBA|PASS|ACCESS|RESTRICT|NAME|DBAFILE|VALUE|PUBNO|AUTHOR|TITLE|BINDING)\\b",
 					"name": "keyword.other.define.master"
 				}
 			]
@@ -102,7 +109,7 @@
 					"name": "constant.numeric.master"
 				},
 				{
-					"match":"\\b(I[0-9]{1,})\\b",
+					"match":"\\b(I[0-9]{1,}(C|S)*)\\b",
 					"name": "constant.numeric.master"
 				},
 				{
@@ -110,7 +117,7 @@
 					"name": "constant.numeric.master"
 				},
 				{
-					"match":"\\b(DATE|YYMD|MDYY|YMD|HYYMDs|HYYMDm|HHISsm|A8YYMD|I8YYMD|A8MDYY|I8MDYY|I6MDY|I6YYM|AUTODATE)\\b",
+					"match":"\\b(DATE|YYMD|MDYY|YMD|A4MD|HYYMDs|HYYMDm|HHISsm|A8YYMD|I8YYMD|A8MDYY|I8MDYY|I6MDY|I6YYM|I6YMTD|I6YMD|QYY|MYY|AUTODATE)\\b",
 					"name": "constant.numeric.master"
 				},
 				{
@@ -118,12 +125,23 @@
 					"name": "keyword.control.define.master"
 				},
 				{
-					"match":"\\b(R|I|H|ON|OFF|NO|SQLSYB|SQLMSS|SQLORA|COMT|COM|TAB|TABT|VSAM|VARIABLE|ISAM|DFIX|U|KU|KM|KL|DKU|DKM|KLU|FIX|FOC|FOCUS|XFOCUS|INNER|LEFT_OUTER|STREAM)\\b",
-					"name":"keyword.control.define.master"
+					"inlcude":"#adapters"
 				},
 				{
 					"match":"=",
 					"name": "punctuation.separator.master" 
+				}
+			]
+		},
+		"adapters": {
+			"patterns": [
+				{
+					"match": "\\b(SQLMSS|SQLORA|SQLDB2|DB2|SQLSYB|COMT|COM|TAB|TABT|VSAM|VSAMX|STREAM|CISAM|ISAM|FIX|FOC|FOCUS|XFOCUS|DFIX|SQLODBC|XML|MYSQL|SOAP|SIBIN|SQLUV|SQLTRN|SQLUND|SQLDBC|BWBAPI|SQLMYSQL|SSAS|SQLBAS|SQLSAP|SQLING|EDA|RMS|SQLNEZ|SQLNUC|SFDC|SQLPARA|QRYI|SQLPRO|SQLPSTGR|SQLRDB|SQLRED|SQLPSQ|SQL1010|REST|SQLISM|ADBSINX|NATB|DATACOM|DBFILE|EJB|ESSBASE|SQLEXCEL|SQLGPD|SQLHYP|IDMSR|SQLIDMS|SQLINF|SQLIPX|IWAF|SQLMMX|SQLJDBC|JSON|LOTUS|SQLMAC|CPMILL|M204INX|DSM)\\b",
+					"name": "keyword.control.define.master"
+				},
+				{
+					"match":"\\b(R|I|H|ON|OFF|NO|VARIABLE|U|KU|KM|KL|DKU|DKM|KLU|INNER|LEFT_OUTER)\\b",					
+					"name":"keyword.control.define.master"
 				}
 			]
 		},
@@ -205,14 +223,6 @@
 				}
 			]
 		},
-		"escapes": {
-			"patterns": [
-				{
-					"match": "\\'",
-					"name": "constant.character.escape.master"
-				}
-			]
-		},
 		"strings": {
 			"patterns": [
 				{
@@ -233,15 +243,10 @@
 						{
 							"begin": "(?:\\G|^)(?=(?:[^\\\\\"]|\\\\.)+$)",
 							"end": "$",
-							"name": "invalid.illegal.unclosed.string.master",
-							"patterns": [
-								{
-									"include": "#escapes"
-								}
-							]
+							"name": "invalid.illegal.unclosed.string.master"
 						},
 						{
-							"include": "#escapes"
+							"include": "#variables"
 						}
 					]
 				},
@@ -263,15 +268,10 @@
 						{
 							"begin": "(?:\\G|^)(?=(?:[^\\\\']|\\\\.)+$)",
 							"end": "$",
-							"name": "invalid.illegal.unclosed.string.master",
-							"patterns": [
-								{
-									"include": "#escapes"
-								}
-							]
+							"name": "invalid.illegal.unclosed.string.master"
 						},
 						{
-							"include": "#escapes"
+							"include": "#variables"
 						}
 					]
 				}

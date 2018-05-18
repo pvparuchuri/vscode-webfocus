@@ -1,0 +1,120 @@
+
+
+-********************************************************************************
+-* Styling: SET Commands
+-********************************************************************************
+SET ASNAMES     =       ON 
+SET BYDISPLAY=ON
+SET PAGE-NUM=NOPAGE
+
+
+ENGINE SQLMSS SET CONNECTION_ATTRIBUTES CON2
+
+-********************************************************************************
+-* Styling: SET and DEFAULT Variables
+-********************************************************************************
+-DEFAULT &TABLE = car ;
+-DEFAULT &VERBOSE = N ;
+-SET &VERBOSEWHENCE = IF &VERBOSE EQ N THEN '-* WHENCE' ELSE 'WHENCE' ;
+-SET &VERBOSETYPE = IF &VERBOSE EQ N THEN '-*' ELSE '-TYPE' ;
+-SET &VERBOSEECHO = IF &VERBOSE EQ N THEN '-*' ELSE '-SET &ECHO = ALL ;' ;
+-SET &GFORMAT  =IF &FORMAT EQ 'PDF' THEN 'SVG'   ELSE &FORMAT ;
+
+-* This is accepted in FOCUS but the styling doesnt recognize since there is no &
+-DEFAULT FORMAT = PDF
+&VERBOSEECHO.EVAL
+&VERBOSEWHENCE.EVAL &CMAPP/&TABLE MASTER
+&VERBOSEWHENCE.EVAL &CMAPP/&TABLE FOCUS
+
+
+-********************************************************************************
+-* Styling: Dialogue Manager Commands
+-********************************************************************************
+-IF &TABLE.EXISTS THEN GOTO SKIPPED;
+
+-* Labels are not Color coded for now. 
+-SKIPPED
+
+-* Verify that only the TYPE and Variables are formatted.
+-TYPE Application Name IS &APPNAME
+
+
+-INCLUDE &INCLVAR
+-INCLUDE DUMMYFILE
+&SKIPINCL.EVAL-INCLUDE DUMMYFILE2
+
+
+-********************************************************************************
+-* Styling: TABLE Data and Formatting
+-********************************************************************************
+TABLE FILE &TABLE
+SUM DEALER_COST NOPRINT
+ON TABLE SET PAGE-NUM OFF
+ON TABLE SET STYLE *
+PAGESIZE=LETTER,$
+TYPE=REPORT,IMAGE=HOLD.SVG,$
+ENDSTYLE
+ON TABLE PCHOLD FORMAT PDF
+END
+-RUN
+
+
+-********************************************************************************
+-* Styling: HTMLFORM, The only styling that this block should have are String, 
+-*          Numeric values and Comments
+-********************************************************************************
+-HTMLFORM BEGIN
+
+<html>
+<body>
+-* Conditions should not be styled
+    IF THEN ELSE WHERE < > 
+    'Text'
+    13-0923
+    &INCLVAR
+</body>
+</html>
+
+-HTMLFORM END
+
+-********************************************************************************
+-* Stying: GRAPH Commands
+-********************************************************************************
+GRAPH FILE &TABLE
+SUM DEALER_COST
+ACROSS MODEL
+ON GRAPH SET 3D OFF
+ON GRAPH SET BARNUMB OFF
+ON GRAPH SET GRID ON
+ON GRAPH SET GRAPHEDIT SERVER
+ON GRAPH SET VZERO ON
+ON GRAPH &HOLDTYPE AS HOLD FORMAT &GFORMAT
+END
+-RUN
+
+-********************************************************************************
+-* Styling: HTML5 Graphs
+-********************************************************************************
+GRAPH FILE filename 
+graph commands 
+ON GRAPH SET STYLE *
+*GRAPH_SCRIPT 
+API calls 
+*END
+*GRAPH_JS 
+JSON 
+*END
+WEBFOCUS StyleSheet commands 
+ENDSTYLE
+END
+
+-********************************************************************************
+-* Styling: MODIFY Commands
+-********************************************************************************
+MODIFY FILE CAR
+FIXFORM FROM HOLD
+MATCH CAR
+ON MATCH REJECT
+ON NOMATCH INCLUDE
+DATA ON HOLD
+END

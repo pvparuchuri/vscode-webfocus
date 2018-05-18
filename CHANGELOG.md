@@ -1,7 +1,13 @@
 # Change Log
 All notable changes to the "WebFOCUS" extension will be documented in this file.
 
-## [Unreleased]
+## [0.2.3] - 2018-05-18
+### Added
+- Added styling for Graphs, Report Styling and Modify
+- More snippets for the USE command.
+- Added wiki page for snippets. 
+- Added support for Stylesheets
+
 ### Removed
 - context aware syntax highlighting
 

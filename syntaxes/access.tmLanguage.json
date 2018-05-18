@@ -5,6 +5,9 @@
 			"include": "#comments"
 		},
 		{
+			"include":"#variables"
+		},
+		{
 			"include": "#field-block"
 		}
 	],
@@ -14,6 +17,14 @@
 				{
 					"match": "((\\$).*$)",
 					"name": "comment.line.master"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"match": "(?<!&)&{1,2}\\b(\\w+)(.EVAL)*\\b",
+					"name":"variable.name.other.focexec"
 				}
 			]
 		},
@@ -45,7 +56,7 @@
 					"include": "#comments"
 				},
 				{	
-					"match" : "\\b([\\s\\t\\n]*(SEGNAME|DELIMITER|HEADER|TABLENAME|CONNECTION|KEY|KEYS|FIELD|AUTOINCREMENT|INDEX_NAME|INDEX_UNIQUE|INDEX_COLUMN|INDEX_ORDER|START|INCREMENT|WRITE|SERVER|KEYFLD|IXFLD|CARDINALITY|FOREIGN_KEY|FOREIGN_KEY_COLUMN|PRIMARY_KEY_TABLE|PRIMARY_KEY_COLUMN|GUI_PARAMS))\\b",
+					"match" : "\\b([\\s\\t\\n]*(SEGNAME|DATA_ORIGIN|DIRECTORY|NAME|EXTENSION|PICKUP|DISCARD|POLLING|TIMEOUT|CHKPT_FILE|DELIMITER|HEADER|TABLENAME|CONNECTION|KEY|KEYS|FIELD|AUTOINCREMENT|INDEX_NAME|INDEX_UNIQUE|INDEX_COLUMN|INDEX_ORDER|START|INCREMENT|WRITE|SERVER|KEYFLD|IXFLD|CARDINALITY|FOREIGN_KEY|FOREIGN_KEY_COLUMN|PRIMARY_KEY_TABLE|PRIMARY_KEY_COLUMN|GUI_PARAMS))\\b",
 					"name": "keyword.other.define.access"
 				},
 				{
@@ -58,14 +69,6 @@
 				},
 				{
 					"include": "#strings"
-				}
-			]
-		},
-		"escapes": {
-			"patterns": [
-				{
-					"match": "\\'",
-					"name": "constant.character.escape.access"
 				}
 			]
 		},
@@ -89,15 +92,10 @@
 						{
 							"begin": "(?:\\G|^)(?=(?:[^\\\\\"]|\\\\.)+$)",
 							"end": "$",
-							"name": "invalid.illegal.unclosed.string.access",
-							"patterns": [
-								{
-									"include": "#escapes"
-								}
-							]
+							"name": "invalid.illegal.unclosed.string.access"
 						},
 						{
-							"include": "#escapes"
+							"include": "#variables"
 						}
 					]
 				},
@@ -119,15 +117,10 @@
 						{
 							"begin": "(?:\\G|^)(?=(?:[^\\\\']|\\\\.)+$)",
 							"end": "$",
-							"name": "invalid.illegal.unclosed.string.access",
-							"patterns": [
-								{
-									"include": "#escapes"
-								}
-							]
+							"name": "invalid.illegal.unclosed.string.access"
 						},
 						{
-							"include": "#escapes"
+							"include": "#variables"
 						}
 					]
 				}

@@ -2,7 +2,7 @@
     "name": "webfocus",
     "displayName": "WebFOCUS",
     "description": "Provides syntax highlighting in Visual Studio Code for WebFOCUS",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "publisher": "pvparuchuri",
     "author": {
 		"name": "Venkata Paruchuri",
@@ -49,6 +49,12 @@
                 "aliases": ["Access File"],
                 "extensions": [".acx"],
                 "configuration": "./languages/access.json"
+            },
+            {
+                "id": "stylesheet",
+                "aliases": ["Stylesheet"],
+                "extensions": [".sty"],
+                "configuration": "./languages/stylesheet.json"
             }
         ],
         "snippets": [
@@ -72,6 +78,11 @@
                 "language": "access",
                 "scopeName": "source.acx",
                 "path": "./syntaxes/access.tmLanguage.json"
+            },
+            {
+                "language": "stylesheet",
+                "scopeName": "source.sty",
+                "path": "./syntaxes/stylesheet.tmLanguage.json"
             }
         ]
     }

@@ -12,16 +12,35 @@
         "prefix": "USE",
         "body": [
             "USE",
-            "\t${1:FileName} AS ${2:MasterFile}",
+            "\t${1:Path\\FileName} AS ${2:MasterFile}",
             "END"
         ],
         "description": "Code snippet for USE"
+    },
+    "USE/CREATE": {
+        "prefix": "USE/CREATE",
+        "body": [
+            "USE",
+            "\t ${1:Path\\FileName} NEW AS ${2:MasterFile} ",
+            "END",
+            "CREATE FILE ${2:MasterFile}",
+            "-RUN"
+        ],
+        "description": "Code snippet Create a new FOC file in a particular location"
+    },
+    "CREATE": {
+        "prefix": "CREATE",
+        "body": [
+            "CREATE FILE ${1:MasterFile}",
+            "-RUN"
+        ],
+        "description": "Code snippet Create a new FOC file"
     },
     "DEFINE": {
         "prefix": "DEFINE",
         "body": [
             "DEFINE FILE ${1:FileName}",
-            "\t${2: }",
+            "\t ${2: }",
             "END"
         ],
         "description": "Code snippet for DEFINE"
@@ -38,7 +57,7 @@
     "FIELDEF": {
         "prefix": "FILEDEF",
         "body": [
-            "FILEDEF ${1:ddname} DISK ${2:path\\filename}"
+            "FILEDEF ${1:ddname} DISK ${2:Path\\Filename}"
         ],
         "description": "Code snippet for FILEDEF"
     },
