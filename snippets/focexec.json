@@ -76,7 +76,7 @@
         "description": "Code snippet for FILEDEF"
     },
     
-	//WebFOCUS Functions ("prefix": "wff")
+
 	"ABS": {
 		"scope": "focexec",
 		"prefix": "wff",
